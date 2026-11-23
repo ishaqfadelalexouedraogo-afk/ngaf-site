@@ -26,7 +26,7 @@ Double-clique sur `index.html` : il s'ouvre dans ton navigateur.
    - `CONTACT_WHATSAPP` : le numéro WhatsApp au format international, sans espace ni « + » (par exemple `22670000000`).
 2. **L'agenda** dans `index.html` (section `agenda`) : le lieu et la date de la formation gratuite de février 2027.
 3. **Les mentions légales** dans `mentions-legales.html` : forme juridique, capital, RCCM, IFU, adresse, directeur de la publication.
-4. **L'équipe** dans `index.html` (section `equipe`) : remplacer « Responsable du pôle » par le nom de chaque responsable, et les initiales par une photo. Mettre les photos (carrées, au moins 400 × 400 pixels) dans `assets/img/equipe/`, puis remplacer `<span class="avatar" aria-hidden="true">DG</span>` par `<img class="avatar" src="assets/img/equipe/prenom-nom.jpg" alt="Prénom Nom">`.
+4. **L'équipe** dans `index.html` (section `equipe`) : sous le titre de chaque pôle, ajouter `<p class="member-role">Prénom Nom</p>`, et remplacer les initiales par une photo. Mettre les photos (carrées, au moins 400 × 400 pixels) dans `assets/img/equipe/`, puis remplacer `<span class="avatar" aria-hidden="true">DG</span>` par `<img class="avatar" src="assets/img/equipe/prenom-nom.jpg" alt="Prénom Nom">`.
 
 ## Mettre le site en ligne gratuitement
 

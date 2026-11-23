@@ -1,6 +1,6 @@
-# Site web de Next Gen Africa Finance
+# Site web de NextGen Africa Finance
 
-Site vitrine de Next Gen Africa Finance (NGAF), Ouagadougou. Ce dépôt ne contient **que le site** : le business plan est conservé à part.
+Site vitrine de NextGen Africa Finance (NGAF), Ouagadougou. Ce dépôt ne contient **que le site** : le business plan est conservé à part.
 
 Le site est en HTML, CSS et JavaScript simples : rien à installer, aucune commande à lancer.
 

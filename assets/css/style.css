@@ -61,7 +61,7 @@ p { margin: 0; }
 /* ---------- En-tête ---------- */
 .site-header { position: sticky; top: 0; z-index: 50; background: var(--white); box-shadow: 0 1px 0 var(--line); }
 .topbar { background: var(--navy-950); color: rgba(255,255,255,.75); font-size: 13.5px; }
-.topbar-inner { display: flex; justify-content: space-between; align-items: center; min-height: 40px; }
+.topbar-inner { display: flex; justify-content: flex-end; align-items: center; min-height: 40px; }
 .topbar nav { display: flex; }
 .topbar a { color: var(--white); text-decoration: none; padding: 0 18px; border-left: 1px solid rgba(255,255,255,.2); }
 .topbar a:first-child { border-left: 0; }
@@ -93,22 +93,40 @@ p { margin: 0; }
   min-height: min(760px, 86vh);
   display: flex; align-items: center;
 }
-.hero-orbits { position: absolute; inset: 0; width: 100%; height: 100%; }
-.hero-inner { position: relative; padding-top: 56px; padding-bottom: 96px; }
-.crumbs { display: flex; flex-wrap: wrap; gap: 8px 0; font-size: 14px; font-weight: 500; margin-bottom: clamp(48px, 8vw, 110px); }
-.crumbs span { color: rgba(255,255,255,.62); }
-.crumbs span + span::before { content: ""; display: inline-block; width: 6px; height: 6px; border-top: 1.5px solid currentColor; border-right: 1.5px solid currentColor; transform: rotate(45deg); margin: 0 16px 1px 12px; }
-.crumbs span:last-child { color: var(--white); }
-.hero h1 { font-size: clamp(2.3rem, 5vw, 4.25rem); max-width: 18ch; letter-spacing: -0.025em; line-height: 1.08; }
+.hero-inner { position: relative; display: grid; grid-template-columns: minmax(0, 1.12fr) minmax(0, .88fr); gap: clamp(24px, 4vw, 64px); align-items: center; padding-top: 72px; padding-bottom: 88px; }
+.hero h1 { font-size: clamp(2.1rem, 3.6vw, 3.25rem); max-width: 20ch; letter-spacing: -0.025em; line-height: 1.08; }
 .hero-lead { font-size: clamp(1.05rem, 1.6vw, 1.35rem); max-width: 36em; margin-top: 32px; color: rgba(255,255,255,.88); }
 .hero-cta { display: flex; flex-wrap: wrap; gap: 16px; margin-top: 44px; }
 @media (prefers-reduced-motion: no-preference) {
-  .hero-inner > * { animation: rise .9s cubic-bezier(.2,.7,.2,1) both; }
-  .hero-inner > :nth-child(2) { animation-delay: .1s; }
-  .hero-inner > :nth-child(3) { animation-delay: .22s; }
-  .hero-inner > :nth-child(4) { animation-delay: .34s; }
+  .hero-text > * { animation: rise .9s cubic-bezier(.2,.7,.2,1) both; }
+  .hero-text > :nth-child(2) { animation-delay: .1s; }
+  .hero-text > :nth-child(3) { animation-delay: .22s; }
+  .hero-figure { animation: fade 1.4s .2s ease both; }
+  .pulse { animation: pulse 2.8s ease-out infinite; transform-box: fill-box; transform-origin: center; }
+  @keyframes fade { from { opacity: 0; } }
+  @keyframes pulse { from { transform: scale(1); opacity: .9; } to { transform: scale(4.5); opacity: 0; } }
   @keyframes rise { from { opacity: 0; transform: translateY(18px); } }
 }
+
+/* Carte de l'Afrique */
+.hero-figure { margin: 0; position: relative; }
+.hero-map { width: 100%; height: auto; max-height: 640px; overflow: visible; display: block; }
+.map-rings circle { fill: none; stroke: rgba(255,255,255,.09); stroke-width: 1.2; }
+.map-rings circle:nth-child(3), .map-rings circle:nth-child(6) { stroke: rgba(217,182,114,.3); }
+.hero-map .land { fill: url(#map-land); stroke: rgba(255,255,255,.16); stroke-width: 1; stroke-linejoin: round; }
+.hero-map .uemoa { fill: #8E6B2F; stroke: rgba(3,13,39,.6); stroke-width: 1; stroke-linejoin: round; transition: fill .2s; }
+.hero-map .uemoa:hover { fill: #B89050; }
+.hero-map .uemoa.bf { fill: #D9B672; }
+.hero-map .link { fill: none; stroke: #fff; stroke-width: 1.6; stroke-dasharray: 4 5; opacity: .8; }
+.hero-map .city { fill: #fff; stroke: var(--navy-950); stroke-width: 1.5; }
+.hero-map .hub { fill: var(--navy-950); stroke: #fff; stroke-width: 3; }
+.hero-map .pulse { fill: none; stroke: #fff; stroke-width: 1.5; }
+.map-label { font: 500 19px var(--sans); fill: #fff; paint-order: stroke; stroke: var(--navy-950); stroke-width: 5px; stroke-linejoin: round; }
+.map-legend { display: flex; flex-wrap: wrap; gap: 8px 24px; justify-content: center; margin-top: 12px; font-size: 13.5px; color: rgba(255,255,255,.78); }
+.map-legend span { display: inline-flex; align-items: center; gap: 8px; }
+.key { display: inline-block; width: 12px; height: 12px; }
+.key-uemoa { background: #B89050; border-radius: 2px; }
+.key-hub { border-radius: 50%; border: 2.5px solid #fff; background: var(--navy-950); }
 
 /* ---------- Approche ---------- */
 .intro { border-top: 6px solid var(--navy-800); padding-bottom: 0; }
@@ -166,17 +184,17 @@ p { margin: 0; }
 /* ---------- Équipe ---------- */
 .team { background: var(--mist); }
 .team .section-head h2 { font-size: 15px; font-weight: 600; letter-spacing: .14em; text-transform: uppercase; }
-.team-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px; max-width: 1540px; margin: 0 auto; }
-.member { background: var(--white); text-align: center; padding: 48px 36px 52px; display: flex; flex-direction: column; align-items: center; transition: box-shadow .25s; }
+.team-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 6px; max-width: 1540px; margin: 0 auto; }
+.member { background: var(--white); text-align: center; padding: 44px 26px 48px; display: flex; flex-direction: column; align-items: center; transition: box-shadow .25s; }
 .member:hover { box-shadow: 0 18px 40px rgba(3,13,39,.12); position: relative; z-index: 1; }
 .member[hidden] { display: none; }
 .avatar {
-  width: 200px; height: 200px; border-radius: 50%; object-fit: cover; margin-bottom: 36px;
-  display: grid; place-items: center; font: 400 64px var(--serif); color: var(--gold-light);
+  width: 168px; height: 168px; border-radius: 50%; object-fit: cover; margin-bottom: 32px;
+  display: grid; place-items: center; font: 400 54px var(--serif); color: var(--gold-light);
   background: radial-gradient(circle at 30% 25%, var(--navy-800), var(--navy-950) 70%);
   box-shadow: inset 0 0 0 1px rgba(217,182,114,.35);
 }
-.member h3 { font-family: var(--serif); font-size: clamp(1.7rem, 2.4vw, 2.2rem); font-weight: 500; color: #000; }
+.member h3 { font-family: var(--serif); font-size: clamp(1.5rem, 2vw, 1.9rem); font-weight: 500; color: #000; }
 .member-role { font-weight: 600; font-size: 16px; margin-top: 14px; padding-bottom: 14px; position: relative; }
 .member-role::after { content: ""; position: absolute; bottom: 0; left: 50%; width: 56px; height: 1px; background: var(--line); transform: translateX(-50%); }
 .member-bio { color: var(--muted); font-size: 15.5px; margin-top: 14px; max-width: 34ch; }
@@ -256,19 +274,20 @@ p { margin: 0; }
   .steps { grid-template-columns: 1fr 1fr; row-gap: 48px; }
   .steps li:nth-child(2)::after { display: none; }
   .commit-grid, .agenda-grid { grid-template-columns: 1fr; }
+  .hero-inner { grid-template-columns: 1fr; }
+  .hero-figure { max-width: 560px; width: 100%; justify-self: center; }
   .team-grid { grid-template-columns: 1fr 1fr; }
   .footer-grid { grid-template-columns: 1fr 1fr; }
 }
 @media (max-width: 720px) {
   body { font-size: 16px; }
-  .topbar p { display: none; }
   .topbar-inner { justify-content: center; }
   .topbar a { padding: 0 12px; }
   .nav { min-height: 70px; }
   .brand img { height: 44px; }
   .hero { min-height: 0; }
-  .crumbs { display: none; }
-  .hero-inner { padding-top: 48px; }
+  .hero-inner { padding-top: 48px; padding-bottom: 64px; }
+  .map-label { font-size: 24px; }
   .btn-lg { width: 100%; }
   .intro-grid, .contact-grid, .form-row, .commit-list { grid-template-columns: 1fr; }
   .facts { grid-template-columns: 1fr 1fr; }

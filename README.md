@@ -8,11 +8,12 @@ Le site est en HTML, CSS et JavaScript simples : rien à installer, aucune comma
 
 | Fichier | Rôle |
 |---|---|
-| `index.html` | La page d'accueil : mission, services, parcours, équipe, agenda, contact |
+| `index.html` | La page d'accueil : approche, services, parcours, engagements, équipes, agenda, contact |
 | `mentions-legales.html` | Les mentions légales, à compléter après l'immatriculation |
-| `assets/css/style.css` | Les couleurs, polices et mises en page (bleu marine `#1F3864`, or `#C9A227`) |
-| `assets/js/main.js` | Le menu sur téléphone, le formulaire de contact et **les coordonnées à renseigner** |
-| `assets/img/` | Le logo et l'icône de l'onglet du navigateur |
+| `assets/css/style.css` | Les couleurs, polices et mises en page (bleu nuit `#030D27`, or `#B89050`, polices Sora et Newsreader) |
+| `assets/js/main.js` | Le menu sur téléphone, l'animation du bandeau d'accueil, l'affichage des pôles, le formulaire de contact et **les coordonnées à renseigner** |
+| `assets/img/` | Le logo complet (`logo-ngaf.png`), l'icône seule (`logo-icon.png`) et les icônes du navigateur |
+| `.claude/skills/frontend-design/` | Le skill de design d'Anthropic utilisé pour concevoir le site |
 
 ## Voir le site sur ton ordinateur
 
@@ -25,7 +26,7 @@ Double-clique sur `index.html` : il s'ouvre dans ton navigateur.
    - `CONTACT_WHATSAPP` : le numéro WhatsApp au format international, sans espace ni « + » (par exemple `22670000000`).
 2. **L'agenda** dans `index.html` (section `agenda`) : le lieu et la date de la formation gratuite de février 2027.
 3. **Les mentions légales** dans `mentions-legales.html` : forme juridique, capital, RCCM, IFU, adresse, directeur de la publication.
-4. **Le logo** : remplacer `assets/img/logo.svg` par le logo définitif, en gardant le même nom de fichier.
+4. **L'équipe** dans `index.html` (section `equipe`) : remplacer « Responsable du pôle » par le nom de chaque responsable, et les initiales par une photo. Mettre les photos (carrées, au moins 400 × 400 pixels) dans `assets/img/equipe/`, puis remplacer `<span class="avatar" aria-hidden="true">DG</span>` par `<img class="avatar" src="assets/img/equipe/prenom-nom.jpg" alt="Prénom Nom">`.
 
 ## Mettre le site en ligne gratuitement
 

@@ -3,173 +3,272 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Next Gen Africa Finance – Éducation financière et accompagnement à Ouagadougou</title>
-  <meta name="description" content="Next Gen Africa Finance forme les épargnants à la bourse et à l'investissement, et accompagne les PME dans leur gestion financière, à Ouagadougou (Burkina Faso).">
-  <link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
+  <title>Next Gen Africa Finance – Éducation financière et conseil aux entreprises, Ouagadougou</title>
+  <meta name="description" content="Next Gen Africa Finance forme les épargnants à la bourse (BRVM) et à l'investissement, et accompagne les PME dans leur gestion financière, depuis Ouagadougou (Burkina Faso).">
+  <meta name="theme-color" content="#030D27">
+  <meta property="og:title" content="Next Gen Africa Finance">
+  <meta property="og:description" content="Connect. Empower. Transform. Éducation financière et accompagnement des entreprises au Burkina Faso et dans l'UEMOA.">
+  <meta property="og:image" content="assets/img/logo-ngaf.png">
+  <link rel="icon" href="assets/img/favicon.png" type="image/png">
+  <link rel="apple-touch-icon" href="assets/img/apple-touch-icon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700&family=Newsreader:opsz,wght@6..72,400;6..72,500;6..72,600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="assets/css/style.css">
 </head>
 <body>
+<a class="skip-link" href="#contenu">Aller au contenu</a>
 
 <header class="site-header">
+  <div class="topbar">
+    <div class="container topbar-inner">
+      <p>Ouagadougou, Burkina Faso</p>
+      <nav aria-label="Liens rapides">
+        <a href="#agenda">Agenda</a>
+        <a href="#contact">Nous contacter</a>
+        <a class="js-whatsapp" href="#contact">WhatsApp</a>
+      </nav>
+    </div>
+  </div>
   <div class="container nav">
-    <a class="logo" href="#accueil" aria-label="Next Gen Africa Finance, accueil">
-      <img src="assets/img/logo.svg" alt="" width="36" height="36">
-      <span>Next Gen <strong>Africa Finance</strong></span>
+    <a class="brand" href="#accueil" aria-label="Next Gen Africa Finance, retour à l'accueil">
+      <img src="assets/img/logo-ngaf.png" alt="Next Gen Africa Finance – Connect. Empower. Transform." width="880" height="270">
     </a>
-    <button class="menu-toggle" aria-expanded="false" aria-controls="menu">Menu</button>
+    <button class="menu-toggle" aria-expanded="false" aria-controls="menu">
+      <span class="menu-toggle-bars" aria-hidden="true"></span><span class="sr-only">Menu</span>
+    </button>
     <nav id="menu" class="menu" aria-label="Navigation principale">
-      <a href="#mission">Mission</a>
+      <a href="#approche">Notre approche</a>
       <a href="#services">Services</a>
       <a href="#parcours">Parcours</a>
       <a href="#equipe">Équipe</a>
-      <a href="#agenda">Agenda</a>
-      <a class="btn btn-small" href="#contact">Nous contacter</a>
+      <a class="btn btn-gold" href="#contact">Prendre rendez-vous</a>
     </nav>
   </div>
 </header>
 
-<main>
+<main id="contenu">
 
+  <!-- ============ ACCUEIL ============ -->
   <section id="accueil" class="hero">
-    <div class="container hero-grid">
-      <div>
-        <p class="eyebrow">Ouagadougou · Burkina Faso</p>
-        <h1>Comprendre, investir, grandir.</h1>
-        <p class="lead">Next Gen Africa Finance forme les épargnants à la bourse et à l'investissement, et accompagne les entreprises dans leur gestion financière. Notre ambition : faire de l'épargne des Burkinabè un moteur pour les entreprises de la région.</p>
-        <div class="cta">
-          <a class="btn" href="#contact">S'inscrire à une formation</a>
-          <a class="btn btn-ghost" href="#services">Découvrir nos services</a>
-        </div>
-      </div>
-      <div class="hero-card" aria-hidden="true">
-        <div class="hero-step"><span>1</span>Apprendre</div>
-        <div class="hero-step"><span>2</span>Investir</div>
-        <div class="hero-step"><span>3</span>Grandir</div>
+    <canvas class="hero-orbits" aria-hidden="true"></canvas>
+    <div class="container hero-inner">
+      <nav class="crumbs" aria-label="Domaines">
+        <span>Éducation financière</span>
+        <span>Conseil aux PME</span>
+        <span>Burkina Faso &amp; UEMOA</span>
+      </nav>
+      <h1>Votre partenaire de confiance pour investir en connaissance de cause</h1>
+      <p class="hero-lead">Formations à la bourse régionale, ateliers en entreprise et accompagnement financier des PME&nbsp;: nous rendons l'investissement lisible pour faire de l'épargne des Burkinabè un moteur pour les entreprises de la région.</p>
+      <div class="hero-cta">
+        <a class="btn btn-gold btn-lg" href="#contact">S'inscrire à une formation</a>
+        <a class="btn btn-line btn-lg" href="#services">Découvrir nos services</a>
       </div>
     </div>
   </section>
 
-  <section id="mission" class="section">
-    <div class="container">
-      <h2>Notre mission</h2>
-      <p class="section-lead">Rendre la finance et l'investissement compréhensibles et accessibles à tous, en commençant par le Burkina Faso.</p>
-      <div class="grid-3">
-        <article class="pillar">
-          <h3>Former</h3>
-          <p>Des formations à la bourse, à l'épargne et aux outils d'intelligence artificielle appliqués à la finance, pour les fonctionnaires, les cadres, les entrepreneurs et les étudiants.</p>
-        </article>
-        <article class="pillar">
-          <h3>Accompagner</h3>
-          <p>Des PME mieux armées pour convaincre une banque ou un investisseur, et des épargnants orientés vers des sociétés de gestion et d'intermédiation (SGI) agréées.</p>
-        </article>
-        <article class="pillar">
-          <h3>Relier</h3>
-          <p>À terme, et une fois les agréments obtenus, la mise en relation d'investisseurs avec des projets d'entreprises sérieux, suivis dans la durée.</p>
-        </article>
-      </div>
+  <!-- ============ APPROCHE ============ -->
+  <section id="approche" class="section intro">
+    <div class="container intro-grid">
+      <article class="intro-item">
+        <svg class="icon-xl" viewBox="0 0 64 64" aria-hidden="true"><defs><linearGradient id="g1" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#D9B672"/><stop offset="1" stop-color="#1B3A8C"/></linearGradient></defs><ellipse cx="26" cy="46" rx="16" ry="5" fill="none" stroke="url(#g1)" stroke-width="3.4"/><path d="M10 46v6c0 2.8 7.2 5 16 5s16-2.2 16-5v-6M10 38v8M42 38v8" fill="none" stroke="url(#g1)" stroke-width="3.4"/><ellipse cx="26" cy="38" rx="16" ry="5" fill="none" stroke="url(#g1)" stroke-width="3.4"/><circle cx="42" cy="20" r="13" fill="none" stroke="url(#g1)" stroke-width="3.4"/><path d="M37 21.5l4 4 7-9" fill="none" stroke="url(#g1)" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        <h2>Des décisions d'épargne plus éclairées</h2>
+        <p>Acheter une action, souscrire à un emprunt obligataire, choisir une SGI&nbsp;: chaque décision dépend d'une bonne compréhension des marchés, des risques et du potentiel de croissance. Nos formations donnent aux épargnants les clés pour lire un rapport annuel, comparer des placements et repérer les arnaques, avant d'engager leur argent.</p>
+      </article>
+      <article class="intro-item">
+        <svg class="icon-xl" viewBox="0 0 64 64" aria-hidden="true"><defs><linearGradient id="g2" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#D9B672"/><stop offset="1" stop-color="#1B3A8C"/></linearGradient></defs><path d="M10 54h46" stroke="url(#g2)" stroke-width="3.6" stroke-linecap="round"/><path d="M16 48V36M26 48V30M36 48V34M46 48V24" stroke="url(#g2)" stroke-width="5" stroke-linecap="round"/><path d="M12 30 24 20l9 6 17-15" fill="none" stroke="url(#g2)" stroke-width="3.6" stroke-linecap="round" stroke-linejoin="round"/><path d="M42 11h8v8" fill="none" stroke="url(#g2)" stroke-width="3.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        <h2>Chez Next Gen Africa Finance</h2>
+        <p>Nous réunissons des compétences en analyse financière, comptabilité, trésorerie, droit et intelligence artificielle. Nous accompagnons les épargnants comme les entreprises&nbsp;: des PME mieux armées pour convaincre une banque ou un investisseur, des particuliers orientés vers des intermédiaires agréés.</p>
+      </article>
+    </div>
+
+    <div class="container statement">
+      <h2>Les grandes décisions financières méritent une vision claire</h2>
+      <p>Depuis Ouagadougou, notre équipe de quatorze associés fondateurs rend la finance et l'investissement compréhensibles et accessibles à tous, en commençant par le Burkina Faso. Une pédagogie sans jargon, appuyée sur des exemples concrets de la BRVM et de l'économie de l'UEMOA.</p>
+      <dl class="facts">
+        <div><dt>14</dt><dd>associés fondateurs</dd></div>
+        <div><dt>7</dt><dd>pôles d'expertise</dd></div>
+        <div><dt>8</dt><dd>pays de l'UEMOA couverts par la BRVM</dd></div>
+        <div><dt>2027</dt><dd>première formation gratuite, en février</dd></div>
+      </dl>
     </div>
   </section>
 
-  <section id="services" class="section section-alt">
+  <!-- ============ SERVICES ============ -->
+  <section id="services" class="section services">
     <div class="container">
-      <h2>Nos services</h2>
-      <div class="grid-3">
-        <article class="card">
+      <header class="section-head">
+        <h2>Nos services</h2>
+        <p>Trois missions&nbsp;: former, accompagner et, à terme, relier les investisseurs aux projets d'entreprises.</p>
+      </header>
+      <div class="service-grid">
+        <article class="service">
+          <svg viewBox="0 0 40 40" aria-hidden="true"><path d="M4 14 20 7l16 7-16 7Z M10 17v8c0 2.5 4.5 5 10 5s10-2.5 10-5v-8 M36 14v10" /></svg>
           <h3>Formations à la bourse</h3>
-          <p>Trois niveaux : découverte, intermédiaire et avancé. Comprendre la BRVM, les actions, les obligations et les fonds, lire un rapport annuel, construire un plan d'épargne.</p>
+          <p>Trois niveaux&nbsp;: découverte, intermédiaire et avancé. Comprendre la BRVM, les actions, les obligations et les fonds, lire un rapport annuel, construire un plan d'épargne.</p>
         </article>
-        <article class="card">
+        <article class="service">
+          <svg viewBox="0 0 40 40" aria-hidden="true"><rect x="9" y="9" width="22" height="22" rx="4"/><path d="M15 15h10v10H15Z M15 4v5M25 4v5M15 31v5M25 31v5M4 15h5M4 25h5M31 15h5M31 25h5"/></svg>
           <h3>IA et finance</h3>
           <p>Utiliser l'intelligence artificielle pour analyser une société, bâtir un budget ou un business plan, et repérer les arnaques. Une méthode, jamais une recommandation d'achat.</p>
         </article>
-        <article class="card">
+        <article class="service">
+          <svg viewBox="0 0 40 40" aria-hidden="true"><path d="M6 34h28 M10 34V18h6v16 M20 34V10h6v24 M30 34V22"/><path d="M8 12 16 6l6 4 10-6"/></svg>
           <h3>Conseil aux PME</h3>
-          <p>Business plan, modèle financier, dossier de crédit bancaire, tableau de bord : nous aidons les entreprises à présenter des chiffres solides.</p>
+          <p>Business plan, modèle financier, dossier de crédit bancaire, tableau de bord&nbsp;: nous aidons les entreprises à présenter des chiffres solides.</p>
         </article>
-        <article class="card">
+        <article class="service">
+          <svg viewBox="0 0 40 40" aria-hidden="true"><circle cx="14" cy="14" r="5"/><circle cx="28" cy="16" r="4"/><path d="M4 33c0-6 4.5-10 10-10s10 4 10 10 M22 25c1.7-1.3 3.7-2 6-2 4.5 0 8 3.4 8 9"/></svg>
           <h3>Ateliers en entreprise</h3>
-          <p>Des ateliers d'éducation financière pour vos salariés, sur site, adaptés à leur situation : épargne, retraite, placements.</p>
+          <p>Des ateliers d'éducation financière pour vos salariés, sur site, adaptés à leur situation&nbsp;: épargne, retraite, placements.</p>
         </article>
-        <article class="card">
+        <article class="service">
+          <svg viewBox="0 0 40 40" aria-hidden="true"><path d="M6 8h28v18H20l-8 6v-6H6Z"/><path d="M12 15h16M12 20h10"/></svg>
           <h3>Panels et conférences</h3>
           <p>Des rencontres avec des professionnels de la finance pour débattre de l'investissement au Burkina et dans l'UEMOA. Ouvertes aux partenaires et sponsors.</p>
         </article>
-        <article class="card card-soon">
-          <p class="badge">Bientôt</p>
-          <h3>Mise en relation</h3>
+        <article class="service service-soon">
+          <svg viewBox="0 0 40 40" aria-hidden="true"><circle cx="9" cy="20" r="4"/><circle cx="31" cy="10" r="4"/><circle cx="31" cy="30" r="4"/><path d="M13 18.5 27 11.5M13 21.5l14 7"/></svg>
+          <h3>Mise en relation <span class="badge">Bientôt</span></h3>
           <p>Rapprocher investisseurs et porteurs de projets, avec un suivi après l'investissement. Ce service ouvrira après l'obtention des agréments nécessaires.</p>
         </article>
       </div>
     </div>
   </section>
 
-  <section id="parcours" class="section">
+  <!-- ============ PARCOURS ============ -->
+  <section id="parcours" class="section journey">
     <div class="container">
-      <h2>Votre parcours avec nous</h2>
+      <header class="section-head">
+        <h2>Votre parcours avec nous</h2>
+        <p>Quatre étapes pour passer de la curiosité à une épargne maîtrisée.</p>
+      </header>
       <ol class="steps">
-        <li><strong>Apprendre</strong><span>Une première formation pour comprendre les bases, sans jargon.</span></li>
-        <li><strong>S'équiper</strong><span>Savoir choisir une SGI agréée et ouvrir son compte en connaissance de cause.</span></li>
-        <li><strong>Pratiquer</strong><span>Approfondir avec les formations intermédiaire et avancée, ou un coaching individuel.</span></li>
-        <li><strong>Progresser</strong><span>Rester informé et échanger avec une communauté d'épargnants.</span></li>
+        <li><h3>Apprendre</h3><p>Une première formation pour comprendre les bases, sans jargon.</p></li>
+        <li><h3>S'équiper</h3><p>Savoir choisir une SGI agréée et ouvrir son compte en connaissance de cause.</p></li>
+        <li><h3>Pratiquer</h3><p>Approfondir avec les formations intermédiaire et avancée, ou un coaching individuel.</p></li>
+        <li><h3>Progresser</h3><p>Rester informé et échanger avec une communauté d'épargnants.</p></li>
       </ol>
     </div>
   </section>
 
-  <section class="section section-alt">
-    <div class="container">
-      <h2>Pourquoi Next Gen Africa Finance</h2>
-      <div class="grid-2">
-        <div class="reason"><h3>Une équipe locale</h3><p>Une équipe burkinabè, présente à Ouagadougou, qui connaît le terrain et les réalités des épargnants.</p></div>
-        <div class="reason"><h3>Indépendante</h3><p>Nous travaillons avec plusieurs SGI : vous restez libre de choisir la vôtre.</p></div>
-        <div class="reason"><h3>Pédagogique</h3><p>Expliquer simplement, avec des exemples concrets de la BRVM et de l'économie de la région.</p></div>
-        <div class="reason"><h3>Intègre</h3><p>Nous ne recevons jamais votre argent et ne vous disons jamais quel titre acheter.</p></div>
+  <!-- ============ ENGAGEMENTS ============ -->
+  <section class="section commitments">
+    <div class="container commit-grid">
+      <h2>Ce qui nous distingue</h2>
+      <div class="commit-list">
+        <div><h3>Une équipe locale</h3><p>Une équipe burkinabè, présente à Ouagadougou, qui connaît le terrain et les réalités des épargnants.</p></div>
+        <div><h3>Indépendante</h3><p>Nous travaillons avec plusieurs SGI&nbsp;: vous restez libre de choisir la vôtre.</p></div>
+        <div><h3>Pédagogique</h3><p>Expliquer simplement, avec des exemples concrets de la BRVM et de l'économie de la région.</p></div>
+        <div><h3>Intègre</h3><p>Nous ne recevons jamais votre argent et ne vous disons jamais quel titre acheter.</p></div>
       </div>
     </div>
   </section>
 
-  <section id="equipe" class="section">
+  <!-- ============ ÉQUIPE ============
+       Pour chaque pôle : remplacez « Responsable du pôle » par le nom,
+       et ajoutez la photo dans assets/img/equipe/ en remplaçant
+       <span class="avatar" aria-hidden="true">XX</span> par
+       <img class="avatar" src="assets/img/equipe/prenom-nom.jpg" alt="Prénom Nom">
+  -->
+  <section id="equipe" class="section team">
     <div class="container">
-      <h2>Notre équipe</h2>
-      <p class="section-lead">14 associés fondateurs, organisés en 7 pôles.</p>
-      <ul class="poles">
-        <li>Direction générale</li>
-        <li>Analyse financière</li>
-        <li>Comptabilité</li>
-        <li>Trésorerie</li>
-        <li>Juridique</li>
-        <li>Commercial et partenariats</li>
-        <li>Communication, digital et IA</li>
-      </ul>
+      <header class="section-head section-head-center">
+        <h2>Nos équipes</h2>
+        <p>Quatorze associés fondateurs, organisés en sept pôles.</p>
+      </header>
+      <div class="team-grid">
+        <article class="member">
+          <span class="avatar" aria-hidden="true">DG</span>
+          <h3>Responsable du pôle</h3>
+          <p class="member-role">Direction générale, Ouagadougou</p>
+          <p class="member-bio">Pilote la stratégie, les partenariats institutionnels et la relation avec les SGI et les régulateurs.</p>
+          <a class="mail" href="#contact" aria-label="Écrire à la direction générale"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="1.5"/><path d="m3.5 6 8.5 7 8.5-7"/></svg></a>
+        </article>
+        <article class="member">
+          <span class="avatar" aria-hidden="true">AF</span>
+          <h3>Responsable du pôle</h3>
+          <p class="member-role">Analyse financière</p>
+          <p class="member-bio">Conçoit les contenus de formation sur la BRVM et réalise les modèles financiers des PME accompagnées.</p>
+          <a class="mail" href="#contact" aria-label="Écrire au pôle Analyse financière"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="1.5"/><path d="m3.5 6 8.5 7 8.5-7"/></svg></a>
+        </article>
+        <article class="member">
+          <span class="avatar" aria-hidden="true">IA</span>
+          <h3>Responsable du pôle</h3>
+          <p class="member-role">Communication, digital et IA</p>
+          <p class="member-bio">Anime la formation IA et finance, la présence en ligne et les outils numériques de la communauté.</p>
+          <a class="mail" href="#contact" aria-label="Écrire au pôle Communication, digital et IA"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="1.5"/><path d="m3.5 6 8.5 7 8.5-7"/></svg></a>
+        </article>
+        <article class="member" data-more hidden>
+          <span class="avatar" aria-hidden="true">CO</span>
+          <h3>Responsable du pôle</h3>
+          <p class="member-role">Comptabilité</p>
+          <p class="member-bio">Accompagne les PME dans la tenue et la présentation de leurs comptes, et veille aux comptes de la société.</p>
+          <a class="mail" href="#contact" aria-label="Écrire au pôle Comptabilité"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="1.5"/><path d="m3.5 6 8.5 7 8.5-7"/></svg></a>
+        </article>
+        <article class="member" data-more hidden>
+          <span class="avatar" aria-hidden="true">TR</span>
+          <h3>Responsable du pôle</h3>
+          <p class="member-role">Trésorerie</p>
+          <p class="member-bio">Construit les tableaux de bord et les plans de trésorerie proposés aux entreprises accompagnées.</p>
+          <a class="mail" href="#contact" aria-label="Écrire au pôle Trésorerie"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="1.5"/><path d="m3.5 6 8.5 7 8.5-7"/></svg></a>
+        </article>
+        <article class="member" data-more hidden>
+          <span class="avatar" aria-hidden="true">JU</span>
+          <h3>Responsable du pôle</h3>
+          <p class="member-role">Juridique</p>
+          <p class="member-bio">Veille au respect de la réglementation de l'AMF-UMOA et prépare les démarches d'agrément.</p>
+          <a class="mail" href="#contact" aria-label="Écrire au pôle Juridique"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="1.5"/><path d="m3.5 6 8.5 7 8.5-7"/></svg></a>
+        </article>
+        <article class="member" data-more hidden>
+          <span class="avatar" aria-hidden="true">CP</span>
+          <h3>Responsable du pôle</h3>
+          <p class="member-role">Commercial et partenariats</p>
+          <p class="member-bio">Organise les ateliers en entreprise, les panels et la relation avec les partenaires et sponsors.</p>
+          <a class="mail" href="#contact" aria-label="Écrire au pôle Commercial et partenariats"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="1.5"/><path d="m3.5 6 8.5 7 8.5-7"/></svg></a>
+        </article>
+      </div>
+      <div class="team-more">
+        <button class="btn btn-outline" type="button" id="team-toggle" aria-expanded="false">Voir les autres pôles</button>
+      </div>
     </div>
   </section>
 
-  <section id="agenda" class="section section-alt">
-    <div class="container">
-      <h2>Agenda</h2>
-      <div class="event">
-        <p class="event-date">Février 2027</p>
+  <!-- ============ AGENDA ============ -->
+  <section id="agenda" class="section agenda">
+    <div class="container agenda-grid">
+      <header class="section-head">
+        <h2>Agenda</h2>
+        <p>Nos prochaines sessions et rencontres.</p>
+      </header>
+      <article class="event">
+        <p class="event-date"><span>Février</span>2027</p>
         <div>
           <h3>Formation gratuite à l'université</h3>
-          <p>Notre première session : découvrir la bourse et l'épargne. Lieu et date exacte annoncés prochainement.</p>
+          <p>Notre première session&nbsp;: découvrir la bourse et l'épargne. Lieu et date exacts annoncés prochainement.</p>
+          <a class="text-link" href="#contact">Être prévenu de l'ouverture des inscriptions</a>
         </div>
-      </div>
+      </article>
     </div>
   </section>
 
-  <section id="contact" class="section">
+  <!-- ============ CONTACT ============ -->
+  <section id="contact" class="section contact">
     <div class="container contact-grid">
-      <div>
-        <h2>Nous contacter</h2>
-        <p>Une question, une inscription, un projet d'atelier pour votre entreprise ou un partenariat ? Écrivez-nous.</p>
+      <div class="contact-intro">
+        <h2>Parlons de votre projet</h2>
+        <p>Une question, une inscription, un projet d'atelier pour votre entreprise ou un partenariat&nbsp;? Écrivez-nous, nous vous répondons rapidement.</p>
         <ul class="contact-list">
-          <li><strong>E-mail :</strong> <a id="contact-email" href="#">à compléter</a></li>
-          <li><strong>WhatsApp :</strong> <a id="contact-whatsapp" href="#">à compléter</a></li>
-          <li><strong>Adresse :</strong> Ouagadougou, Burkina Faso</li>
+          <li><span>E-mail</span><a id="contact-email" href="#contact-form">À compléter</a></li>
+          <li><span>WhatsApp</span><a id="contact-whatsapp" href="#contact-form">À compléter</a></li>
+          <li><span>Adresse</span>Ouagadougou, Burkina Faso</li>
         </ul>
       </div>
       <form id="contact-form" class="form" novalidate>
-        <label>Nom et prénom<input name="nom" required autocomplete="name"></label>
-        <label>Téléphone ou e-mail<input name="contact" required></label>
+        <div class="form-row">
+          <label>Nom et prénom<input name="nom" required autocomplete="name"></label>
+          <label>Téléphone ou e-mail<input name="contact" required></label>
+        </div>
         <label>Objet
           <select name="objet">
             <option>Inscription à une formation</option>
@@ -180,9 +279,10 @@
             <option>Autre</option>
           </select>
         </label>
-        <label>Message<textarea name="message" rows="4"></textarea></label>
-        <button class="btn" type="submit">Envoyer</button>
-        <p class="form-note">Le bouton ouvre votre messagerie avec le message prérempli.</p>
+        <label>Message<textarea name="message" rows="5"></textarea></label>
+        <p class="form-error" id="form-error" role="alert" hidden></p>
+        <button class="btn btn-gold btn-lg" type="submit">Envoyer le message</button>
+        <p class="form-note">Le bouton ouvre votre messagerie (ou WhatsApp) avec le message prérempli.</p>
       </form>
     </div>
   </section>
@@ -190,10 +290,32 @@
 </main>
 
 <footer class="site-footer">
-  <div class="container">
-    <p><strong>Next Gen Africa Finance</strong> · Ouagadougou, Burkina Faso</p>
+  <div class="container footer-grid">
+    <div class="footer-brand">
+      <img src="assets/img/logo-icon.png" alt="" width="56" height="56">
+      <p><strong>Next Gen Africa Finance</strong><br>Connect. Empower. Transform.</p>
+    </div>
+    <nav aria-label="Le cabinet">
+      <h2>Le cabinet</h2>
+      <a href="#approche">Notre approche</a>
+      <a href="#equipe">Nos équipes</a>
+      <a href="#agenda">Agenda</a>
+    </nav>
+    <nav aria-label="Services">
+      <h2>Services</h2>
+      <a href="#services">Formations à la bourse</a>
+      <a href="#services">Conseil aux PME</a>
+      <a href="#services">Ateliers en entreprise</a>
+    </nav>
+    <div>
+      <h2>Contact</h2>
+      <p>Ouagadougou, Burkina Faso</p>
+      <a class="btn btn-gold" href="#contact">Prendre rendez-vous</a>
+    </div>
+  </div>
+  <div class="container footer-legal">
     <p class="disclaimer">Next Gen Africa Finance propose de l'éducation financière et du conseil en gestion aux entreprises. Nous ne fournissons pas de conseil en investissement personnalisé, ne recevons pas de fonds de nos clients et ne transmettons pas d'ordres de bourse. Investir comporte des risques de perte en capital.</p>
-    <p><a href="mentions-legales.html">Mentions légales</a> · © <span id="year"></span> Next Gen Africa Finance</p>
+    <p><a href="mentions-legales.html">Mentions légales</a><span>© <span id="year">2026</span> Next Gen Africa Finance</span></p>
   </div>
 </footer>
 

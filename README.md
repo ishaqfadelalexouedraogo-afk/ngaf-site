@@ -21,7 +21,9 @@ Le site est en HTML, CSS et JavaScript simples : rien à installer. Les polices 
 | `sitemap.xml`, `robots.txt`, `site.webmanifest` | Référencement et icône d'application |
 | `assets/css/style.css` | Couleurs (bleu nuit `#030D27`, or `#B89050`), polices Sora et Newsreader, mises en page |
 | `assets/js/main.js` | Menu mobile, formulaire et **coordonnées à renseigner** |
-| `.claude/skills/frontend-design/` | Le skill de design d'Anthropic utilisé pour concevoir le site |
+| `assets/js/home.js` | Animations de l'accueil : l'Afrique en particules (assemblage, rotation lente, réaction à la souris, dispersion au défilement), phrase qui s'allume mot à mot, chiffres qui défilent, faisceau de lumière |
+| `assets/vendor/` | GSAP 3.13 et ScrollTrigger, la bibliothèque d'animation, hébergés dans le site |
+| `.claude/skills/` | Les skills d'Anthropic utilisés : `frontend-design` (design) et `algorithmic-art` (systèmes de particules) |
 
 ## À faire avant d'ouvrir le site au public
 
@@ -45,6 +47,10 @@ Le site est en HTML, CSS et JavaScript simples : rien à installer. Les polices 
 ## Voir le site sur son ordinateur
 
 Double-cliquer sur `index.html`. Pour un rendu identique à la version en ligne, lancer `python3 -m http.server` dans le dossier puis ouvrir `http://localhost:8000`.
+
+## Animations et accessibilité
+
+Les animations de l'accueil se coupent automatiquement pour les visiteurs qui ont activé « Réduire les animations » sur leur appareil : la carte s'affiche alors fixe. Sans JavaScript, la carte fixe s'affiche aussi.
 
 ## Règle de contenu à respecter
 

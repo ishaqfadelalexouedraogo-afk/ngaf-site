@@ -19,6 +19,14 @@ if (toggle && menu) {
   document.addEventListener("keydown", (e) => { if (e.key === "Escape") close(); });
 }
 
+// En-tête : effet verre dépoli dès que l'on fait défiler la page
+const siteHeader = document.querySelector(".site-header");
+if (siteHeader) {
+  const onScroll = () => siteHeader.classList.toggle("is-scrolled", window.scrollY > 8);
+  window.addEventListener("scroll", onScroll, { passive: true });
+  onScroll();
+}
+
 // Année du pied de page
 const year = document.getElementById("year");
 if (year) year.textContent = new Date().getFullYear();

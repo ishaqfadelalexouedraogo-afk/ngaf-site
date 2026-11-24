@@ -21,7 +21,7 @@ Le site est en HTML, CSS et JavaScript simples : rien à installer. Les polices 
 | `sitemap.xml`, `robots.txt`, `site.webmanifest` | Référencement et icône d'application |
 | `assets/css/style.css` | Couleurs (bleu nuit `#030D27`, or `#B89050`), polices Sora et Newsreader, mises en page |
 | `assets/js/main.js` | Menu mobile, formulaire et **coordonnées à renseigner** |
-| `assets/js/home.js` | Animations de l'accueil : l'Afrique en particules (assemblage, rotation lente, réaction à la souris, dispersion au défilement), phrase qui s'allume mot à mot, chiffres qui défilent, faisceau de lumière |
+| `assets/js/home.js` | Animations de l'accueil : l'Afrique en particules avec ses frontières, le Burkina Faso et la Côte d'Ivoire mis en avant et étiquetés, réaction à la souris, dispersion au défilement ; parcours qui s'allume étape par étape ; phrase qui s'allume mot à mot ; chiffres qui défilent ; faisceau de lumière |
 | `assets/vendor/` | GSAP 3.13 et ScrollTrigger, la bibliothèque d'animation, hébergés dans le site |
 | `.claude/skills/` | Les skills d'Anthropic utilisés : `frontend-design` (design) et `algorithmic-art` (systèmes de particules) |
 

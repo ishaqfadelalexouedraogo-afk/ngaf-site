@@ -1,6 +1,7 @@
 // NextGen Africa Finance — animations de la page d'accueil
-// L'Afrique en particules : le continent se compose au chargement, respire,
-// s'écarte au passage de la souris et se disperse en champ d'étoiles au défilement.
+// L'Afrique en particules : le continent se compose au chargement, puis son contour
+// se dessine ; le Burkina Faso et la Côte d'Ivoire sont mis en avant. Les particules
+// s'écartent au passage de la souris et se dispersent en étoiles au défilement.
 (() => {
   const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
   const hero = document.querySelector(".hero");
@@ -20,7 +21,7 @@
   // ---------- Échantillonnage du continent ----------
   const VB = { x: -20, y: -10, w: 740, h: 750 };
   const mobile = window.matchMedia("(max-width: 720px)").matches;
-  const STEP = mobile ? 8.5 : 6;
+  const STEP = mobile ? 6.5 : 5;
   const off = document.createElement("canvas");
   off.width = VB.w; off.height = VB.h;
   const octx = off.getContext("2d", { willReadFrequently: true });
@@ -29,6 +30,7 @@
   fill("path.land", "#0000ff");
   fill("path.uemoa", "#ff0000");
   fill("path.uemoa.bf", "#00ff00");
+  fill("path.uemoa.ci", "#ff00ff");
   const img = octx.getImageData(0, 0, VB.w, VB.h).data;
 
   const hx = [], hy = [], kind = [];
@@ -39,7 +41,9 @@
       const i = (sy * VB.w + sx) * 4;
       if (img[i + 3] < 200) continue;
       hx.push(sx); hy.push(sy);
-      kind.push(img[i + 1] > 128 ? 2 : img[i] > 128 ? 1 : 0); // 0 continent, 1 UEMOA, 2 Burkina Faso
+      // 0 continent, 1 autres pays de l'UEMOA, 2 Burkina Faso, 3 Côte d'Ivoire
+      const r = img[i], gg = img[i + 1], b = img[i + 2];
+      kind.push(gg > 128 ? 2 : r > 128 && b > 128 ? 3 : r > 128 ? 1 : 0);
     }
   }
   const N = hx.length;
@@ -58,10 +62,12 @@
     phase[i] = rand() * Math.PI * 2;
     sx0[i] = rand(); sy0[i] = rand();
   }
-  // centre de gravité du Burkina Faso (pour le halo)
-  let bfx = 0, bfy = 0, bfn = 0;
-  for (let i = 0; i < N; i++) if (kind[i] === 2) { bfx += hx[i]; bfy += hy[i]; bfn++; }
-  bfx /= bfn || 1; bfy /= bfn || 1;
+  // centres du Burkina Faso et de la Côte d'Ivoire (pour les halos)
+  const centre = (k) => { let x = 0, y = 0, n = 0; for (let i = 0; i < N; i++) if (kind[i] === k) { x += hx[i]; y += hy[i]; n++; } return [x / (n || 1), y / (n || 1)]; };
+  const [bfx, bfy] = centre(2), [cix, ciy] = centre(3);
+  // tracés vectoriels pour les contours nets
+  const shapes = (sel) => [...svg.querySelectorAll(sel)].map((p) => new Path2D(p.getAttribute("d")));
+  const allPaths = shapes("path.land, path.uemoa"), bfPath = shapes("path.uemoa.bf"), ciPath = shapes("path.uemoa.ci"), uemoaPaths = shapes("path.uemoa");
 
   // ---------- Toile ----------
   const canvas = document.createElement("canvas");
@@ -95,7 +101,10 @@
 
   // ---------- Rendu ----------
   const state = { p: 0 };           // dispersion liée au défilement (0 → 1)
-  const COLORS = ["rgb(150,172,240)", "rgb(217,182,114)", "rgb(246,226,178)"];
+  // continent, autres pays de l'UEMOA, Burkina Faso, Côte d'Ivoire
+  const COLORS = ["rgb(150,172,240)", "rgb(176,138,78)", "rgb(252,238,205)", "rgb(226,190,118)"];
+  const ALPHA = [0.5, 0.75, 1, 1];
+  const SIZE = [1.25, 1.4, 1.8, 1.7];
   const start = performance.now();
   const easeOut = (t) => 1 - Math.pow(1 - t, 3);
   let running = true;
@@ -104,31 +113,53 @@
     if (!running) return;
     const t = now - start;
     const intro = Math.min(1, t / 2600);
+    const lines = Math.min(1, Math.max(0, (t - 1500) / 1400));   // les contours se dessinent après l'assemblage
     const p = state.p;
-    const theta = Math.sin(t * 0.00032) * 0.28;          // le continent pivote lentement
-    const cos = Math.cos(theta), sin = Math.sin(theta);
-    const cx = VB.w / 2, depth = 90, persp = 900;
-    const R = 90 * Math.max(scale, 0.6), R2 = R * R;
+    const R = 80 * Math.max(scale, 0.6), R2 = R * R;
+    const float = Math.sin(t * 0.0006) * 4;                         // le continent flotte doucement
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
     ctx.clearRect(0, 0, W, H);
 
-    // halo sur le Burkina Faso
-    const gx = mx + bfx * scale, gy = my + bfy * scale;
-    const pulse = 0.55 + 0.45 * Math.sin(t * 0.0021);
-    const g = ctx.createRadialGradient(gx, gy, 0, gx, gy, 150 * scale + 40);
-    g.addColorStop(0, `rgba(217,182,114,${0.34 * pulse * (1 - p) * intro})`);
-    g.addColorStop(1, "rgba(217,182,114,0)");
-    ctx.fillStyle = g; ctx.fillRect(0, 0, W, H);
+    // halos : Burkina Faso et Côte d'Ivoire
+    const halo = (x, y, rad, a) => {
+      const gx = mx + x * scale, gy = my + y * scale + float;
+      const g = ctx.createRadialGradient(gx, gy, 0, gx, gy, rad * scale + 30);
+      g.addColorStop(0, `rgba(217,182,114,${a})`); g.addColorStop(1, "rgba(217,182,114,0)");
+      ctx.fillStyle = g; ctx.fillRect(0, 0, W, H);
+    };
+    const pulse = 0.6 + 0.4 * Math.sin(t * 0.0021);
+    halo(bfx, bfy, 120, 0.30 * pulse * (1 - p) * intro);
+    halo(cix, ciy, 110, 0.22 * (1.4 - pulse) * (1 - p) * intro);
 
-    for (let k = 0; k < 3; k++) {
+    // contours vectoriels (dans le repère de la carte)
+    if (lines > 0 && p < 1) {
+      const k = lines * (1 - p);
+      ctx.setTransform(dpr * scale, 0, 0, dpr * scale, dpr * (mx - VB.x * scale), dpr * (my - VB.y * scale + float));
+      ctx.lineJoin = "round";
+      ctx.lineWidth = 0.9 / scale;
+      ctx.strokeStyle = `rgba(190,205,255,${0.22 * k})`;
+      allPaths.forEach((p2) => ctx.stroke(p2));
+      ctx.fillStyle = `rgba(184,144,80,${0.10 * k})`;
+      uemoaPaths.forEach((p2) => ctx.fill(p2));
+      ctx.fillStyle = `rgba(217,182,114,${0.30 * k})`;
+      ciPath.forEach((p2) => ctx.fill(p2));
+      ctx.fillStyle = `rgba(246,226,178,${0.36 * k})`;
+      bfPath.forEach((p2) => ctx.fill(p2));
+      ctx.lineWidth = 2 / scale;
+      ctx.strokeStyle = `rgba(217,182,114,${0.95 * k})`;
+      ciPath.forEach((p2) => ctx.stroke(p2));
+      ctx.strokeStyle = `rgba(250,236,200,${k})`;
+      bfPath.forEach((p2) => ctx.stroke(p2));
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    }
+
+    for (let k = 0; k < 4; k++) {
       ctx.fillStyle = COLORS[k];
+      const base = ALPHA[k], sz = SIZE[k];
       for (let i = 0; i < N; i++) {
         if (kind[i] !== k) continue;
-        // pivot 3D autour de l'axe vertical
-        const dx = hx[i] - cx, dz = pz[i] * depth;
-        const rx = dx * cos + dz * sin, rz = -dx * sin + dz * cos;
-        const f = persp / (persp - rz);
-        let x = mx + (cx + rx * f) * scale + Math.sin(t * 0.0011 + phase[i]) * 0.9;
-        let y = my + (hy[i] * f + (1 - f) * VB.h / 2) * scale + Math.cos(t * 0.0013 + phase[i]) * 0.9;
+        let x = mx + hx[i] * scale + Math.sin(t * 0.0011 + phase[i]) * 0.7;
+        let y = my + hy[i] * scale + float + Math.cos(t * 0.0013 + phase[i]) * 0.7;
         // assemblage au chargement
         const a = easeOut(Math.min(1, Math.max(0, (intro - delay[i]) / (1 - delay[i] + 1e-6))));
         if (a < 1) {
@@ -139,24 +170,44 @@
         if (p > 0) { const d = dist[i] * p * p; x += dirx[i] * d; y += diry[i] * d - p * 60; }
         // la souris écarte les particules, un ressort les ramène
         const ddx = x + ox[i] - mouseX, ddy = y + oy[i] - mouseY, d2 = ddx * ddx + ddy * ddy;
-        if (d2 < R2) { const s = (1 - Math.sqrt(d2) / R) * 2.4; const n = Math.sqrt(d2) || 1; vx[i] += (ddx / n) * s; vy[i] += (ddy / n) * s; }
+        if (d2 < R2) { const n = Math.sqrt(d2) || 1; const f = (1 - n / R) * 2.2; vx[i] += (ddx / n) * f; vy[i] += (ddy / n) * f; }
         vx[i] = (vx[i] - ox[i] * 0.06) * 0.86; vy[i] = (vy[i] - oy[i] * 0.06) * 0.86;
         ox[i] += vx[i]; oy[i] += vy[i];
-        const size = (k ? 1.7 : 1.35) * f * (0.8 + scale * 0.6) * (1 + p * 0.8);
-        ctx.globalAlpha = (k ? 0.95 : 0.55) * (0.55 + 0.45 * f) * (1 - p * 0.55) * (0.25 + 0.75 * a);
+        const twinkle = 0.75 + 0.25 * Math.sin(t * 0.002 + phase[i] * 3);
+        const size = sz * (0.85 + scale * 0.5) * (1 + p * 0.8) * (0.8 + 0.2 * (pz[i] + 1));
+        ctx.globalAlpha = base * twinkle * (1 - p * 0.55) * (0.25 + 0.75 * a);
         ctx.fillRect(x + ox[i], y + oy[i], size, size);
       }
     }
     // repère de la BRVM (Abidjan), comme dans la légende
     {
-      const dx = 160 - cx, rz = -dx * sin, f = persp / (persp - rz);
-      const ax = mx + (cx + dx * cos * f) * scale, ay = my + (337 * f + (1 - f) * VB.h / 2) * scale;
-      ctx.globalAlpha = intro * (1 - p);
-      ctx.strokeStyle = "#fff"; ctx.lineWidth = 2.5;
+      const ax = mx + 160 * scale, ay = my + 337 * scale + float;
+      const ring = (t / 2200) % 1;
+      ctx.strokeStyle = "#fff";
+      ctx.globalAlpha = intro * (1 - p); ctx.lineWidth = 2.5;
       ctx.beginPath(); ctx.arc(ax, ay, 5.5, 0, Math.PI * 2); ctx.stroke();
-      ctx.globalAlpha = intro * (1 - p) * (1 - ((t / 2200) % 1));
-      ctx.lineWidth = 1;
-      ctx.beginPath(); ctx.arc(ax, ay, 6 + 16 * ((t / 2200) % 1), 0, Math.PI * 2); ctx.stroke();
+      ctx.globalAlpha = intro * (1 - p) * (1 - ring); ctx.lineWidth = 1;
+      ctx.beginPath(); ctx.arc(ax, ay, 6 + 16 * ring, 0, Math.PI * 2); ctx.stroke();
+    }
+    // étiquettes reliées par un trait fin : Burkina Faso et Côte d'Ivoire
+    if (lines > 0 && p < 0.6 && W > 720) {
+      const k = lines * (1 - p / 0.6);
+      const callout = (x, y, lx, ly, text, color) => {
+        const ax = mx + x * scale, ay = my + y * scale + float;
+        const bx = mx + lx * scale, by = my + ly * scale + float;
+        ctx.globalAlpha = k;
+        ctx.strokeStyle = color; ctx.lineWidth = 1;
+        ctx.beginPath(); ctx.moveTo(ax, ay); ctx.lineTo(bx, by); ctx.lineTo(bx + (lx < x ? -14 : 14), by); ctx.stroke();
+        ctx.beginPath(); ctx.arc(ax, ay, 2.5, 0, Math.PI * 2); ctx.fillStyle = color; ctx.fill();
+        ctx.font = "500 14px Sora, system-ui, sans-serif";
+        ctx.textBaseline = "middle"; ctx.textAlign = lx < x ? "right" : "left";
+        const tx = bx + (lx < x ? -20 : 20);
+        ctx.lineWidth = 4; ctx.strokeStyle = "rgba(3,13,39,0.85)"; ctx.strokeText(text, tx, by);
+        ctx.fillStyle = color; ctx.fillText(text, tx, by);
+      };
+      callout(bfx, bfy, bfx + 70, bfy - 150, "Burkina Faso", "rgb(252,238,205)");
+      callout(cix, ciy + 8, cix - 20, ciy + 120, "Côte d'Ivoire", "rgb(232,200,135)");
+      ctx.globalAlpha = 1; ctx.textAlign = "left";
     }
     // étoiles de fond
     ctx.fillStyle = "#fff";
@@ -196,6 +247,23 @@
   mm.add("(max-width: 900px)", () => {
     ScrollTrigger.create({ trigger: hero, start: "top top", end: "bottom top", scrub: true, onUpdate: (s) => { state.p = s.progress * 0.7; } });
   });
+
+  // ---------- Le parcours s'allume étape par étape ----------
+  const steps = document.querySelector(".journey .steps");
+  if (steps) {
+    const items = [...steps.children];
+    steps.classList.add("js-progress");
+    ScrollTrigger.create({
+      trigger: steps, start: "top 80%", end: "bottom 50%", scrub: true,
+      onUpdate: (s) => {
+        const pos = s.progress * (items.length - 1);
+        items.forEach((li, i) => {
+          li.classList.toggle("is-active", s.progress > 0 && pos >= i - 0.02);
+          li.style.setProperty("--fill", Math.min(1, Math.max(0, pos - i)).toFixed(3));
+        });
+      },
+    });
+  }
 
   // ---------- La phrase forte s'allume mot à mot ----------
   const statement = document.querySelector(".statement h2");

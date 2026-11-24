@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://ishaqfadelalexouedraogo-afk.github.io/ngaf-site/sitemap.xml

@@ -1,9 +1,10 @@
-// Next Gen Africa Finance — script du site
+// NextGen Africa Finance — script commun à toutes les pages
 
-// ====== À COMPLÉTER : coordonnées de contact ======
-const CONTACT_EMAIL = "";      // exemple : "contact@nextgenafricafinance.bf"
+// ====== À COMPLÉTER AVANT LA MISE EN LIGNE ======
+const CONTACT_EMAIL = "";      // exemple : "contact@nextgenafricafinance.com"
 const CONTACT_WHATSAPP = "";   // numéro au format international, sans espace ni « + » : exemple "22670000000"
-// ==================================================
+const FORM_ENDPOINT = "";      // facultatif : adresse d'un service de formulaire (par exemple Formspree : "https://formspree.io/f/xxxxxxx")
+// ================================================
 
 // Menu mobile
 const toggle = document.querySelector(".menu-toggle");
@@ -22,42 +23,39 @@ if (toggle && menu) {
 const year = document.getElementById("year");
 if (year) year.textContent = new Date().getFullYear();
 
-// Coordonnées
-const emailLink = document.getElementById("contact-email");
-if (emailLink && CONTACT_EMAIL) {
-  emailLink.href = "mailto:" + CONTACT_EMAIL;
-  emailLink.textContent = CONTACT_EMAIL;
+// Coordonnées : affichées seulement quand elles sont renseignées
+if (CONTACT_EMAIL) {
+  const a = document.getElementById("contact-email");
+  if (a) { a.href = "mailto:" + CONTACT_EMAIL; a.textContent = CONTACT_EMAIL; }
+  document.querySelectorAll('[data-config="email"]').forEach((el) => (el.hidden = false));
 }
 if (CONTACT_WHATSAPP) {
   const waUrl = "https://wa.me/" + CONTACT_WHATSAPP;
   document.querySelectorAll("#contact-whatsapp, .js-whatsapp").forEach((a) => {
     a.href = waUrl; a.target = "_blank"; a.rel = "noopener"; a.hidden = false;
   });
-  const waLink = document.getElementById("contact-whatsapp");
-  if (waLink) waLink.textContent = "+" + CONTACT_WHATSAPP;
+  const wa = document.getElementById("contact-whatsapp");
+  if (wa) wa.textContent = "+" + CONTACT_WHATSAPP;
+  document.querySelectorAll('[data-config="whatsapp"]').forEach((el) => (el.hidden = false));
 }
 
-// Équipe : afficher / masquer les autres pôles
-const teamToggle = document.getElementById("team-toggle");
-if (teamToggle) {
-  const more = document.querySelectorAll(".member[data-more]");
-  if (!more.length) teamToggle.parentElement.hidden = true;
-  teamToggle.addEventListener("click", () => {
-    const open = teamToggle.getAttribute("aria-expanded") !== "true";
-    more.forEach((m) => (m.hidden = !open));
-    teamToggle.setAttribute("aria-expanded", String(open));
-    teamToggle.textContent = open ? "Masquer les autres pôles" : "Voir les autres pôles";
-  });
-}
-
-// Formulaire : ouvre la messagerie avec le message prérempli (aucun serveur nécessaire)
+// Formulaire de contact
 const form = document.getElementById("contact-form");
-const formError = document.getElementById("form-error");
 if (form) {
-  const showError = (msg) => { formError.textContent = msg; formError.hidden = false; };
-  form.addEventListener("submit", (e) => {
+  const errorBox = document.getElementById("form-error");
+  const successBox = document.getElementById("form-success");
+  const select = form.querySelector("select[name=objet]");
+
+  // Objet présélectionné depuis le lien (contact.html?objet=entreprise)
+  const wanted = new URLSearchParams(window.location.search).get("objet");
+  if (wanted && select && select.querySelector(`option[value="${CSS.escape(wanted)}"]`)) select.value = wanted;
+
+  const showError = (msg) => { successBox.hidden = true; errorBox.textContent = msg; errorBox.hidden = false; };
+  const showSuccess = (msg) => { errorBox.hidden = true; successBox.textContent = msg; successBox.hidden = false; };
+
+  form.addEventListener("submit", async (e) => {
     e.preventDefault();
-    formError.hidden = true;
+    errorBox.hidden = true;
     const data = new FormData(form);
     const nom = (data.get("nom") || "").toString().trim();
     const contact = (data.get("contact") || "").toString().trim();
@@ -66,12 +64,33 @@ if (form) {
       (nom ? form.contact : form.nom).focus();
       return;
     }
-    const objet = data.get("objet");
-    const body = `Nom : ${nom}\nContact : ${contact}\n\n${data.get("message") || ""}`;
-    if (CONTACT_EMAIL) {
+    const objet = select.options[select.selectedIndex].text;
+    const message = (data.get("message") || "").toString().trim();
+    const body = `Nom : ${nom}\nContact : ${contact}\n\n${message}`;
+    const button = form.querySelector("button[type=submit]");
+
+    if (FORM_ENDPOINT) {
+      button.disabled = true;
+      try {
+        const res = await fetch(FORM_ENDPOINT, {
+          method: "POST",
+          headers: { Accept: "application/json" },
+          body: (() => { const f = new FormData(); f.append("nom", nom); f.append("contact", contact); f.append("objet", objet); f.append("message", message); return f; })(),
+        });
+        if (!res.ok) throw new Error(String(res.status));
+        form.reset();
+        showSuccess("Message envoyé. Nous vous répondons dès que possible.");
+      } catch {
+        showError("Le message n'a pas pu être envoyé. Vérifiez votre connexion et réessayez.");
+      } finally {
+        button.disabled = false;
+      }
+    } else if (CONTACT_EMAIL) {
       window.location.href = `mailto:${CONTACT_EMAIL}?subject=${encodeURIComponent(objet)}&body=${encodeURIComponent(body)}`;
+      showSuccess("Votre messagerie s'ouvre avec le message prérempli : il ne reste qu'à l'envoyer.");
     } else if (CONTACT_WHATSAPP) {
       window.open(`https://wa.me/${CONTACT_WHATSAPP}?text=${encodeURIComponent(objet + "\n" + body)}`, "_blank", "noopener");
+      showSuccess("WhatsApp s'ouvre avec le message prérempli : il ne reste qu'à l'envoyer.");
     } else {
       showError("L'envoi n'est pas encore activé : les coordonnées de contact restent à renseigner dans assets/js/main.js.");
     }

@@ -1,0 +1,21 @@
+{
+  "name": "NextGen Africa Finance",
+  "short_name": "NextGen",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "background_color": "#030D27",
+  "theme_color": "#030D27",
+  "lang": "fr",
+  "icons": [
+    {
+      "src": "assets/img/apple-touch-icon.png",
+      "sizes": "180x180",
+      "type": "image/png"
+    },
+    {
+      "src": "assets/img/logo-icon.png",
+      "sizes": "256x256",
+      "type": "image/png"
+    }
+  ]
+}
